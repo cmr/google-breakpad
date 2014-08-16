@@ -13,7 +13,7 @@ if [ "$CXX" == "" ]; then
     CXX=c++
 fi
 
-$CXX -c -static -pthread -I src rust_breakpad_linux.cc
+$CXX -fPIC -c -static -pthread -I src rust_breakpad_linux.cc
 ar rcs librust_breakpad_client.a rust_breakpad_linux.o
 ar rcs librust_breakpad_client.a src/client/linux/libbreakpad_client.a
 
