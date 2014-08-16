@@ -1,6 +1,4 @@
 #include "client/linux/handler/exception_handler.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 using namespace google_breakpad;
 
@@ -38,8 +36,8 @@ extern "C" {
         return reinterpret_cast<void*>(new MinidumpDescriptor(path));
     }
 
-    const char *rust_breakpad_descriptor_path(void *desc_) {
-        return reinterpret_cast<MinidumpDescriptor*>(desc_)->path();
+    const char *rust_breakpad_descriptor_path(void *desc) {
+        return reinterpret_cast<MinidumpDescriptor*>(desc)->path();
     }
 
     void rust_breakpad_descriptor_free(void *desc) {
