@@ -4,14 +4,6 @@
 
 using namespace google_breakpad;
 
-static bool dumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
-        void* context,
-        bool succeeded)
-{
-    printf("Dump path: %s\n", descriptor.path());
-    return succeeded;
-}
-
 typedef ExceptionHandler::MinidumpCallback MinidumpCallback;
 typedef ExceptionHandler::FilterCallback FilterCallback;
 
