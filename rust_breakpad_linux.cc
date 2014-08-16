@@ -24,21 +24,13 @@ WrapperContext::WrapperContext(FilterCallback fcb, MinidumpCallback mcb, void *c
 static bool filter_callback_wrapper(void *context) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
 
-    if (cont->fcb) {
-        return cont->fcb(cont->real_context);
-    } else {
-        return true;
-    }
+    return cont->fcb ? cont->fcb(cont->real_context) : true;
 }
 
 static bool minidump_callback_wrapper(const MinidumpDescriptor &desc, void *context, bool succeeded) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
 
-    if (cont->mcb) {
-        return cont->mcb(desc, cont->real_context, succeeded);
-    } else {
-        return succeeded;
-    }
+    return cont->mcb ? cont->mcb(desc, cont->real_context, succeeded) : succeeded;
 }
 
 extern "C" {
