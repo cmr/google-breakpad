@@ -1,0 +1,10 @@
+[package]
+
+name = "google-breakpad"
+version = "1.0.0"
+authors = [ ]
+build = "sh build.sh"
+
+[lib]
+name = "stub"
+path = "stub.rs"
