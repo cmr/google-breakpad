@@ -1,6 +1,14 @@
 Breakpad is a set of client and server components which implement a
 crash-reporting system.
 
+RUST SUPPORT
+============
+
+This is a Cargo shim package for the native dependency. It is slightly
+modified from upstream to not contain any non-windows/linux support, as well
+as some large files only used by the testsuite.
+
+This only works for Linux and mingw right now.
 
 -----
 Getting started in 32-bit mode (from trunk)
