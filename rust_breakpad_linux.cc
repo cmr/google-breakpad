@@ -43,7 +43,7 @@ extern "C" {
         return reinterpret_cast<void*>(desc);
     }
 
-    const char *rust_breakpad_descriptor_path(const void *desc_) {
+    const char *rust_breakpad_descriptor_path(void *desc_) {
         MinidumpDescriptor *desc = reinterpret_cast<MinidumpDescriptor*>(desc_);
         return desc->path();
     }
