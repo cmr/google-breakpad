@@ -12,15 +12,18 @@ struct WrapperContext {
     FilterCallback fcb;
     void *real_context;
 
-    WrapperContext(FilterCallback fcb, MinidumpCallback mcb, void *context) {
-        this->mcb = mcb;
-        this->fcb = fcb;
-        this->real_context = context;
-    }
+    WrapperContext(FilterCallback fcb, MinidumpCallback mcb, void *context);
 };
+
+WrapperContext::WrapperContext(FilterCallback fcb, MinidumpCallback mcb, void *context) {
+    this->mcb = mcb;
+    this->fcb = fcb;
+    this->real_context = context;
+}
 
 static bool filter_callback_wrapper(void *context) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
+
     if (cont->fcb) {
         return cont->fcb(cont->real_context);
     } else {
@@ -30,6 +33,7 @@ static bool filter_callback_wrapper(void *context) {
 
 static bool minidump_callback_wrapper(const MinidumpDescriptor &desc, void *context, bool succeeded) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
+
     if (cont->mcb) {
         return cont->mcb(desc, cont->real_context, succeeded);
     } else {
@@ -62,6 +66,7 @@ extern "C" {
             reinterpret_cast<void*>(wrapper_context),
             install_handler,
             -1);
+
         return reinterpret_cast<void*>(eh);
     }
 
