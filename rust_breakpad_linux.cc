@@ -39,13 +39,11 @@ static bool minidump_callback_wrapper(const MinidumpDescriptor &desc, void *cont
 
 extern "C" {
     void *rust_breakpad_descriptor_new(const char *path) {
-        MinidumpDescriptor *desc = new MinidumpDescriptor(path);
-        return reinterpret_cast<void*>(desc);
+        return reinterpret_cast<void*>(new MinidumpDescriptor(path));
     }
 
     const char *rust_breakpad_descriptor_path(void *desc_) {
-        MinidumpDescriptor *desc = reinterpret_cast<MinidumpDescriptor*>(desc_);
-        return desc->path();
+        return reinterpret_cast<MinidumpDescriptor*>(desc_)->path();
     }
 
     void rust_breakpad_descriptor_free(void *desc) {
@@ -68,8 +66,7 @@ extern "C" {
     }
 
     int rust_breakpad_exceptionhandler_write_minidump(void *eh) {
-        ExceptionHandler *exch = reinterpret_cast<ExceptionHandler*>(eh);
-        return exch->WriteMinidump();
+        return reinterpret_cast<ExceptionHandler*>(eh)->WriteMinidump();
     }
 
     void rust_breakpad_exceptionhandler_free(void *eh) {
