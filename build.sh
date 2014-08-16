@@ -9,7 +9,7 @@ fi
 
 ./configure
 make -j4
-if [ "$CXX" == "" ]; then
+if test "$CXX" = ""; then
     CXX=c++
 fi
 
