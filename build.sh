@@ -14,7 +14,6 @@ if [ "$CXX" == "" ]; then
 fi
 
 $CXX -fPIC -c -static -pthread -I src rust_breakpad_linux.cc
-ar rcs librust_breakpad_client.a rust_breakpad_linux.o
-ar rcs librust_breakpad_client.a src/client/linux/libbreakpad_client.a
+ar -M < link.mri
 
 cp librust_breakpad_client.a "$OUT_DIR"
