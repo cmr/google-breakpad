@@ -29,12 +29,20 @@ struct WrapperContext {
 
 static bool filter_callback_wrapper(void *context) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
-    return cont->fcb(cont->real_context);
+    if (cont->fcb) {
+        return cont->fcb(cont->real_context);
+    } else {
+        return true;
+    }
 }
 
 static bool minidump_callback_wrapper(const MinidumpDescriptor &desc, void *context, bool succeeded) {
     WrapperContext *cont = reinterpret_cast<WrapperContext*>(context);
-    return cont->mcb(desc, cont->real_context, succeeded);
+    if (cont->mcb) {
+        return cont->mcb(desc, cont->real_context, succeeded);
+    } else {
+        return succeeded;
+    }
 }
 
 extern "C" {
